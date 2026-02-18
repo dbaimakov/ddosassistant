@@ -1,12 +1,12 @@
-package com.example.ddosassistant
+package com.ddosassistant
 
 import android.content.Context
-import com.example.ddosassistant.data.db.AppDatabase
-import com.example.ddosassistant.data.network.ElkConnector
-import com.example.ddosassistant.data.network.GraphConnector
-import com.example.ddosassistant.data.network.NetworkModule
-import com.example.ddosassistant.data.repo.IncidentRepository
-import com.example.ddosassistant.data.settings.SettingsRepository
+import com.ddosassistant.data.db.AppDatabase
+import com.ddosassistant.data.network.ElkConnector
+import com.ddosassistant.data.network.GraphConnector
+import com.ddosassistant.data.network.NetworkModule
+import com.ddosassistant.data.repo.IncidentRepository
+import com.ddosassistant.data.settings.SettingsRepository
 import com.google.gson.Gson
 
 object AppServices {
