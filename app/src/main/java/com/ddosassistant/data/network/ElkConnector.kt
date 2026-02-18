@@ -1,5 +1,4 @@
-\
-package com.example.ddosassistant.data.network
+package com.ddosassistant.data.network
 
 import com.google.gson.Gson
 import okhttp3.MediaType.Companion.toMediaTypeOrNull

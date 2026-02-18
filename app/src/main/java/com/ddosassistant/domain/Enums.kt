@@ -1,4 +1,4 @@
-package com.example.ddosassistant.domain
+package com.ddosassistant.domain
 
 enum class IncidentStatus { DETECTED, ACTIVE, STABILIZED, CLOSED }
 enum class Severity { LOW, MEDIUM, HIGH, CRITICAL }

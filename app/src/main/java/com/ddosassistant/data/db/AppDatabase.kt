@@ -1,4 +1,4 @@
-package com.example.ddosassistant.data.db
+package com.ddosassistant.data.db
 
 import android.content.Context
 import androidx.room.Database
