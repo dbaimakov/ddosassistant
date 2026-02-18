@@ -157,7 +157,7 @@ class IncidentRepository(
         require(settings.graphToken.isNotBlank()) { "Graph token not set. Configure it in Settings." }
         require(settings.sharePointDriveId.isNotBlank()) { "SharePoint driveId not set. Configure it in Settings." }
 
-        val displayName = queryDisplayName(context.contentResolver, uri) ?: "evidence.bin"
+        val displayName = queryDisplayName(context, uri)
         val bytes = readAllBytes(uri)
         val hash = sha256Hex(bytes)
 
