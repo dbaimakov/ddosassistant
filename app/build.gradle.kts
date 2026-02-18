@@ -1,3 +1,6 @@
+// NOTE: Do not apply org.jetbrains.kotlin.android here.
+// In merged Android branches this plugin is already provided, and applying it again
+// triggers: "Cannot add extension with name 'kotlin'".
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
