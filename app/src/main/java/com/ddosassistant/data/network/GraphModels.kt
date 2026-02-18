@@ -1,4 +1,4 @@
-package com.example.ddosassistant.data.network
+package com.ddosassistant.data.network
 
 import com.google.gson.annotations.SerializedName
 
