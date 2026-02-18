@@ -1,4 +1,4 @@
-package com.example.ddosassistant.data.settings
+package com.ddosassistant.data.settings
 
 import android.content.Context
 import androidx.datastore.preferences.core.Preferences
