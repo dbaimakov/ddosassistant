@@ -1,4 +1,4 @@
-package com.example.ddosassistant
+package com.ddosassistant
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -8,12 +8,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.ddosassistant.ui.screens.IncidentDetailScreen
-import com.example.ddosassistant.ui.screens.IncidentsScreen
-import com.example.ddosassistant.ui.screens.SettingsScreen
-import com.example.ddosassistant.ui.screens.viewmodel.IncidentDetailViewModel
-import com.example.ddosassistant.ui.screens.viewmodel.IncidentsViewModel
-import com.example.ddosassistant.ui.screens.viewmodel.SettingsViewModel
+import com.ddosassistant.ui.screens.IncidentDetailScreen
+import com.ddosassistant.ui.screens.IncidentsScreen
+import com.ddosassistant.ui.screens.SettingsScreen
+import com.ddosassistant.ui.screens.viewmodel.IncidentDetailViewModel
+import com.ddosassistant.ui.screens.viewmodel.IncidentsViewModel
+import com.ddosassistant.ui.screens.viewmodel.SettingsViewModel
 
 @Composable
 fun DdosAssistantApp() {

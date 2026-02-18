@@ -1,4 +1,4 @@
-package com.example.ddosassistant.data.db
+package com.ddosassistant.data.db
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

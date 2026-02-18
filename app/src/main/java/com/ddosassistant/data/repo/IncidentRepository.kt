@@ -1,16 +1,15 @@
-\
-package com.example.ddosassistant.data.repo
+package com.ddosassistant.data.repo
 
 import android.content.Context
 import android.net.Uri
-import com.example.ddosassistant.data.db.*
-import com.example.ddosassistant.data.network.ElkConnector
-import com.example.ddosassistant.data.network.GraphConnector
-import com.example.ddosassistant.data.settings.SettingsRepository
-import com.example.ddosassistant.domain.*
-import com.example.ddosassistant.util.newId
-import com.example.ddosassistant.util.queryDisplayName
-import com.example.ddosassistant.util.sha256Hex
+import com.ddosassistant.data.db.*
+import com.ddosassistant.data.network.ElkConnector
+import com.ddosassistant.data.network.GraphConnector
+import com.ddosassistant.data.settings.SettingsRepository
+import com.ddosassistant.domain.*
+import com.ddosassistant.util.newId
+import com.ddosassistant.util.queryDisplayName
+import com.ddosassistant.util.sha256Hex
 import com.google.gson.Gson
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
@@ -365,6 +364,6 @@ data class IncidentExport(
 )
 
 // Convenience extension: get latest settings once (blocking the first emission).
-suspend fun SettingsRepository.settingsValue(): com.example.ddosassistant.data.settings.AppSettings {
+suspend fun SettingsRepository.settingsValue(): com.ddosassistant.data.settings.AppSettings {
     return this.settings.first()
 }
