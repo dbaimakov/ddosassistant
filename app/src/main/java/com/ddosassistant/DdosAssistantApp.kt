@@ -10,6 +10,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.ddosassistant.ui.screens.IncidentDetailScreen
 import com.ddosassistant.ui.screens.IncidentsScreen
+import com.ddosassistant.ui.screens.MainMenuScreen
 import com.ddosassistant.ui.screens.SettingsScreen
 import com.ddosassistant.ui.screens.viewmodel.IncidentDetailViewModel
 import com.ddosassistant.ui.screens.viewmodel.IncidentsViewModel
@@ -21,12 +22,20 @@ fun DdosAssistantApp() {
 
     val factory = remember { ViewModelFactory() }
 
-    NavHost(navController = navController, startDestination = "incidents") {
+    NavHost(navController = navController, startDestination = "main-menu") {
+        composable("main-menu") {
+            MainMenuScreen(
+                onCreateIncident = { navController.navigate("incidents") },
+                onOpenSettings = { navController.navigate("settings") }
+            )
+        }
+
         composable("incidents") {
             val vm: IncidentsViewModel = viewModel(factory = factory)
             IncidentsScreen(
                 viewModel = vm,
                 onOpenIncident = { id -> navController.navigate("incident/$id") },
+                onBackToMenu = { navController.popBackStack() },
                 onOpenSettings = { navController.navigate("settings") }
             )
         }
