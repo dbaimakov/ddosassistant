@@ -39,6 +39,7 @@ import java.util.Locale
 fun IncidentsScreen(
     viewModel: IncidentsViewModel,
     onOpenIncident: (String) -> Unit,
+    onBackToMenu: () -> Unit,
     onOpenSettings: () -> Unit
 ) {
     val incidents by viewModel.incidents.collectAsStateWithLifecycle()
@@ -62,6 +63,7 @@ fun IncidentsScreen(
 
     Column(modifier = Modifier.fillMaxSize().padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            Button(onClick = onBackToMenu) { Text("Back to main menu") }
             Button(onClick = onOpenSettings) { Text("Settings") }
         }
 
