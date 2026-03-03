@@ -1,3 +1,5 @@
+
+
 package com.ddosassistant
 
 import androidx.compose.runtime.Composable
@@ -21,12 +23,17 @@ fun DdosAssistantApp() {
     val navController = rememberNavController()
 
     val factory = remember { ViewModelFactory() }
+NavHost(navController = navController, startDestination = "main-menu") {
 
-    NavHost(navController = navController, startDestination = "main-menu") {
-        composable("main-menu") {
-            MainMenuScreen(
-                onCreateIncident = { navController.navigate("incidents") },
-                onOpenSettings = { navController.navigate("settings") }
+    composable("main-menu") {
+        MainMenuScreen(
+            onCreateIncident = { navController.navigate("incidents") },
+            onOpenSettings = { navController.navigate("settings") }
+        )
+    }
+
+    // keep the rest of your routes below (incidents, incident details, settings, etc.)
+}
             )
         }
 
@@ -35,9 +42,17 @@ fun DdosAssistantApp() {
             IncidentsScreen(
                 viewModel = vm,
                 onOpenIncident = { id -> navController.navigate("incident/$id") },
-                onBackToMenu = { navController.popBackStack() },
-                onOpenSettings = { navController.navigate("settings") }
-            )
+NavHost(navController = navController, startDestination = "main-menu") {
+
+    composable("main-menu") {
+        MainMenuScreen(
+            onCreateIncident = { navController.navigate("incidents") },
+            onOpenSettings = { navController.navigate("settings") }
+        )
+    }
+
+    // keep the rest of your routes below (incidents, incident details, settings, etc.)
+}
         }
         composable(
             route = "incident/{id}",
