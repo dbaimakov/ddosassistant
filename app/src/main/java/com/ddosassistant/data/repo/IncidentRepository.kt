@@ -41,23 +41,36 @@ class IncidentRepository(
 
     suspend fun createIncident(
         title: String,
+        category: IncidentCategory,
         affectedService: String,
         description: String,
-        severity: Severity = Severity.HIGH
+        additionalInfo: String = "",
+        createdAtEpochMs: Long = Instant.now().toEpochMilli(),
+        severity: Severity = Severity.HIGH,
+        attachmentUris: List<Uri> = emptyList()
     ): String {
         val id = newId()
-        val now = Instant.now().toEpochMilli()
         val incident = IncidentEntity(
             incidentId = id,
             title = title.trim(),
+            category = category.name,
             affectedService = affectedService.trim(),
             description = description.trim(),
+            additionalInfo = additionalInfo.trim(),
             severity = severity.name,
             status = IncidentStatus.DETECTED.name,
-            startTimeEpochMs = now,
+            startTimeEpochMs = createdAtEpochMs,
             endTimeEpochMs = null
         )
         incidentDao.upsert(incident)
+        attachmentUris.forEach { uri ->
+            addManualEvidenceReference(
+                incidentId = id,
+                type = EvidenceType.OTHER,
+                localUri = uri.toString(),
+                collectedBy = settingsRepository.settingsValue().defaultActorName
+            )
+        }
         logChange(id, actionId = null, what = "Incident created", why = "Initial detection/triage started")
         return id
     }
@@ -269,6 +282,42 @@ class IncidentRepository(
         commDao.upsert(comm)
         logChange(incidentId, null, what = "Teams update posted", why = "Cross-team coordination")
         return resp.id ?: "Posted (no message id returned)"
+    }
+
+    suspend fun sendIncidentEmail(
+        incidentId: String,
+        recipients: List<String>,
+        subject: String? = null
+    ) {
+        val settings = settingsRepository.settingsValue()
+        require(settings.graphToken.isNotBlank()) { "Graph token not set. Configure it in Settings." }
+        require(recipients.isNotEmpty()) { "At least one email recipient is required." }
+
+        val incident = incidentDao.getById(incidentId) ?: error("Incident not found")
+        val email = IncidentEmailComposer.compose(
+            incident = incident,
+            toRecipients = recipients,
+            subject = subject
+        )
+
+        graph.sendMail(
+            bearerToken = settings.graphToken,
+            message = email
+        )
+
+        commDao.upsert(
+            CommunicationEntity(
+                commId = newId(),
+                incidentId = incidentId,
+                channel = CommChannel.EMAIL.name,
+                sentAtEpochMs = Instant.now().toEpochMilli(),
+                sentBy = settings.defaultActorName,
+                subject = email.subject,
+                body = email.body.content,
+                remoteLink = null
+            )
+        )
+        logChange(incidentId, null, what = "Incident email sent", why = "Stakeholder notification")
     }
 
     suspend fun createKibanaThresholdAlertForIncident(
