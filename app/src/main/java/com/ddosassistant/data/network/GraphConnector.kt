@@ -77,6 +77,21 @@ class GraphConnector(
         )
     }
 
+    suspend fun sendMail(
+        bearerToken: String,
+        message: GraphMessage,
+        saveToSentItems: Boolean = true
+    ) {
+        val auth = bearer(bearerToken)
+        api.sendMail(
+            authorization = auth,
+            body = GraphSendMailRequest(
+                message = message,
+                saveToSentItems = saveToSentItems
+            )
+        )
+    }
+
     private suspend fun uploadLargeFileWithSession(
         authHeader: String,
         driveId: String,

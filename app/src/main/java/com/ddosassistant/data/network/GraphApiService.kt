@@ -44,4 +44,10 @@ interface GraphApiService {
         @Path("channelId") channelId: String,
         @Body body: TeamsPostMessageRequest
     ): TeamsMessageResponse
+
+    @POST("me/sendMail")
+    suspend fun sendMail(
+        @Header("Authorization") authorization: String,
+        @Body body: GraphSendMailRequest
+    )
 }

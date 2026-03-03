@@ -38,3 +38,28 @@ data class TeamsMessageBody(
 data class TeamsMessageResponse(
     val id: String? = null
 )
+
+
+data class GraphSendMailRequest(
+    val message: GraphMessage,
+    val saveToSentItems: Boolean = true
+)
+
+data class GraphMessage(
+    val subject: String,
+    val body: GraphSendMailBodyContent,
+    val toRecipients: List<GraphRecipient>
+)
+
+data class GraphSendMailBodyContent(
+    val contentType: String = "Text",
+    val content: String
+)
+
+data class GraphRecipient(
+    val emailAddress: GraphRecipientEmailAddress
+)
+
+data class GraphRecipientEmailAddress(
+    val address: String
+)

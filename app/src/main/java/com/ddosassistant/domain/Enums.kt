@@ -3,6 +3,14 @@ package com.ddosassistant.domain
 enum class IncidentStatus { DETECTED, ACTIVE, STABILIZED, CLOSED }
 enum class Severity { LOW, MEDIUM, HIGH, CRITICAL }
 
+enum class IncidentCategory {
+    DDOS,
+    BOT_FLOOD,
+    ZERO_DAY,
+    THREAT_HUNTING_LEAD,
+    EMERGENCY_SERVERLOG_COLLECTION
+}
+
 enum class MitigationType {
     DOS_PROFILE,
     HEAVY_URL,

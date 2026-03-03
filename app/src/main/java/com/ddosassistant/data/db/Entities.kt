@@ -7,8 +7,10 @@ import androidx.room.PrimaryKey
 data class IncidentEntity(
     @PrimaryKey val incidentId: String,
     val title: String,
+    val category: String,
     val affectedService: String,
     val description: String,
+    val additionalInfo: String,
     val severity: String,
     val status: String,
     val startTimeEpochMs: Long,

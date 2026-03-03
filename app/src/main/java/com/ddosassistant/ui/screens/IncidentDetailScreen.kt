@@ -12,6 +12,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ddosassistant.ui.screens.viewmodel.IncidentDetailViewModel
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 @Composable
 fun IncidentDetailScreen(
@@ -20,6 +23,7 @@ fun IncidentDetailScreen(
     onOpenSettings: () -> Unit
 ) {
     val incident by viewModel.incident.collectAsStateWithLifecycle()
+    val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
 
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp),
@@ -28,6 +32,11 @@ fun IncidentDetailScreen(
         Button(onClick = onBack) { Text("Back") }
         Button(onClick = onOpenSettings) { Text("Settings") }
         Text(incident?.title ?: "Incident not found")
-        Text(incident?.description.orEmpty())
+        incident?.let {
+            Text("Type: ${it.category}")
+            Text("Created: ${formatter.format(Date(it.startTimeEpochMs))}")
+            Text(it.description)
+            if (it.additionalInfo.isNotBlank()) Text("Additional info: ${it.additionalInfo}")
+        }
     }
 }
